@@ -1,5 +1,6 @@
 import React from 'react';
-import { PropsType} from "./App";
+import {PropsType} from "./Todolist";
+
 
 export type DataPropsType = {
     data: PropsType
@@ -13,16 +14,16 @@ export const Tasks = (props: DataPropsType ) => {
                 <ul>
                     {props.data.tasks.map((el) => {
                         return <li>
-                            <span>{el.taskId}</span>
+                            <span>{el.id}</span>
                             <span>{el.title}</span>
                             <span>{el.isDone}</span>
                         </li>
                     })}
                 </ul>
                 <ul>
-                    {props.data.students.map((name) => {
+                    {props.data.tasks.map((name) => {
                         return <li>
-                            {name}
+                            {}
                         </li>
                     })}
                 </ul>
