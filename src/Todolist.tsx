@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FilterValuesType} from './App';
 
 type TaskType = {
@@ -16,6 +16,23 @@ export type PropsType = {
 }
 
 export function Todolist(props: PropsType) {
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = props.tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+    }
+    if (filter === "three") {
+        tasksForTodolist = props.tasks.filter(t => t.id < 4)
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
     return <div>
         <h3>{props.title}</h3>
         <div>
@@ -24,7 +41,7 @@ export function Todolist(props: PropsType) {
         </div>
         <ul>
             {
-                props.tasks.map(t => <li key={t.id}>
+                tasksForTodolist.map(t => <li key={t.id}>
                     <input type="checkbox" checked={t.isDone}/>
                     <span>{t.title}</span>
                     <button onClick={() => {
@@ -60,7 +77,7 @@ export function Todolist(props: PropsType) {
                 Completed
             </button>
             <button onClick={() => {
-                props.changeFilter("three")
+                changeFilter("three")
             }}>
                 1st three tasks
             </button>
